@@ -35,30 +35,7 @@ error: handleAjaxError
 $("#orderitem-form")[0].reset();
 return false;
 }
-//function checkQuantity(orderData){
-//
-//    var user_demand = $('orderitem-form input[name=quantity]').val();
-//
-//    if(user_demand > orderData.quantity){
-//        alert("Quantity not available");
-//        return false;
-//    }
-//    orderData.quantity = user_demand;
-//
-//    make_map(orderData);
-//}
 
-//function createOrderData(data){
-//    var orderTemp = "";
-//    for(var i in data){
-//        var e = data[i];
-//        orderTemp = e.barcode;
-//        if(orderItemTable.hasOwnProperty(orderTemp)){
-//             orderItemTable[orderTemp] = data;
-//         }
-//        else{ alert("Update the quantity from action");}
-//    }
-//}
 function addOrder(event){
 	//Set the values to update
 
