@@ -43,7 +43,7 @@ function updateProduct(event){
 	//Set the values to update
 	var $form = $("#product-edit-form");
 	var json = toJson($form);
-    console.log(json);
+//    console.log(json);
 	$.ajax({
 	   url: url,
 	   type: 'PUT',
@@ -52,6 +52,13 @@ function updateProduct(event){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
+	        console.log(response);
+	        if(Number(response.mrp) <= 0){
+	        	alert("You entered wrong value");
+	        }
+	        else{
+	            alert("Entry updated");
+	        }
 	   		getProductList();
 	   },
 	   error: handleAjaxError
@@ -66,7 +73,7 @@ function getProductList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	        console.log(data);
+//	        console.log(data);
 	   		displayProductList(data);
 	   },
 	   error: handleAjaxError

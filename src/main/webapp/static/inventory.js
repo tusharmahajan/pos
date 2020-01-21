@@ -71,18 +71,6 @@ function getInventoryList(){
 	});
 }
 
-//function deleteInventory(id){
-//	var url = getinventoryUrl() + "/" + id;
-//
-//	$.ajax({
-//	   url: url,
-//	   type: 'DELETE',
-//	   success: function(data) {
-//	   		getInventoryList();
-//	   },
-//	   error: handleAjaxError
-//	});
-//}
 
 // FILE UPLOAD METHODS
 var fileData = [];

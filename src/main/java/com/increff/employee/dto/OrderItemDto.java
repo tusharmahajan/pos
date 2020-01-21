@@ -64,7 +64,6 @@ public class OrderItemDto {
         OrderItemPojo p = new OrderItemPojo();
         ProductPojo product = productService.getBarcodePojo(form.getBarcode());
         InventoryPojo inventory = inventoryService.getInventoryPojo(product.getProduct_id());
-//        System.out.println("dsfads");
 
         p.setOrder_id(order.getOrderId());
         p.setQuantity(form.getQuantity());
@@ -83,7 +82,6 @@ public class OrderItemDto {
 
         Document document = documentBuilder.newDocument();
 
-        // root element
         Element root = document.createElement("InvoiceData");
         document.appendChild(root);
         Double sum = 0.0;
@@ -125,11 +123,6 @@ public class OrderItemDto {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource domSource = new DOMSource(document);
         StreamResult streamResult = new StreamResult(new File(xmlFilePath));
-
-        // If you use
-        // StreamResult result = new StreamResult(System.out);
-        // the output will be pushed to the standard output ...
-        // You can use that for debugging
 
         transformer.transform(domSource, streamResult);
 

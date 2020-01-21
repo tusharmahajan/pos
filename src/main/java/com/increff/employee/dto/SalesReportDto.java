@@ -78,7 +78,6 @@ public class SalesReportDto {
                 salesReportData.setCategory(form.getCategory());
                 for(OrderItemPojo orderItem : orderItems){
                     String category=(brandService.get(productService.get(orderItem.getProduct_id()).getBrand_category())).getCategory();
-//                    System.out.println(salesReportData.getCategory()+" "+category);
                     if(category.equals(salesReportData.getCategory())){
                         salesReportData.setQuantity(salesReportData.getQuantity()+orderItem.getQuantity());
                         salesReportData.setRevenue(salesReportData.getRevenue()+(orderItem.getQuantity()*orderItem.getSellingPrice()));

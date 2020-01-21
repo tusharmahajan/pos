@@ -39,7 +39,7 @@ public class InventoryService {
 
         InventoryPojo ip = getInventoryPojo(id);
         // to do weather to update barcode
-        if (p.getQuantity() > 0) {
+        if (p.getQuantity() >= 0) {
             ip.setInventory_id(p.getInventory_id());
             ip.setQuantity(p.getQuantity());
             inventory_dao.update(ip);

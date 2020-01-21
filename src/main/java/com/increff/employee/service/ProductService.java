@@ -64,7 +64,9 @@ public class ProductService {
 
         BrandPojo temp_id = productDto.tempID(brand , category);
         // to do weather to update barcode
-        if (temp_id != null) {
+        if(p.getMrp() < 0) throw new ApiException("MRP cant be negative");
+
+        if (temp_id != null && p.getMrp() >0 ) {
             ex.setMrp(p.getMrp());
             ex.setName(p.getName());
             ex.setBarcode(p.getBarcode());

@@ -64,7 +64,7 @@ function addOrder(event){
 
 	var row_entry = {};
 	var send_order= [];
-	console.log('sadasd');
+//	console.log('sadasd');
 	for(var i in orderItemTable){
 		row_entry = new Object;
 		row_entry['barcode'] = i;
@@ -73,7 +73,7 @@ function addOrder(event){
 	}
 
 	var url = getOrderUrl();
-	console.log(send_order);
+//	console.log(send_order);
 
 	$.ajax({
 		url: url,
@@ -83,8 +83,10 @@ function addOrder(event){
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
-			console.log("hi");
+//			console.log("hi");
 //	   		getOrderList();
+    alert("Congralutions order created");
+
 },
 error: handleAjaxError
 });

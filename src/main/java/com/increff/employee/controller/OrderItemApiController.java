@@ -46,19 +46,6 @@ public class OrderItemApiController {
         return orderItemDto.getProduct(barcode);
     }
 
-//    @ApiOperation(value = "Gets list of all orders")
-//    @RequestMapping(path = "/api/order", method = RequestMethod.GET)
-//    public List<Order> getAll() throws ApiException {
-//
-//
-//    }
-
-//    @ApiOperation(value = "Updates an quantity")
-//    @RequestMapping(path = "/api/order/{barcode}", method = RequestMethod.PUT)
-//    public void update(@PathVariable String barcode) throws ApiException {
-//        orderItemDto.update(barcode);
-//    }
-
     //invoice genration
     @ApiOperation(value = "Invoice generation")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.GET)
