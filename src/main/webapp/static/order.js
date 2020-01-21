@@ -10,7 +10,10 @@ function addOrderItem(){
 	var barcode = $('#orderitem-form input[name=barcode]').val();
 	var quantity = Number($('#orderitem-form input[name=quantity]').val());
 //	console.log(barcode);
-
+    if(barcode ==""){
+        alert("Enter barcode");
+        return;
+    }
 var url = getOrderUrl() + '/' + barcode ;
 
 $.ajax({
@@ -22,10 +25,12 @@ $.ajax({
 
 		if(Number(orderItemTable[barcode][1]) > data.quantity){
 			orderItemTable[barcode][1] =  Number(orderItemTable[barcode][1]) - quantity;
-			alert("Quantity not available");
+			alert("Quantity not available.Max quantity is :" + data.quantity);
 		}
-		console.log(data);
+		else{
+//		console.log(data);
 		displayOrderList(data);
+		}
 //	   		checkQuantity(data);
 //	   		make_map(data);
 },
@@ -84,7 +89,7 @@ function updateOrder(event){
 		type: 'GET',
 		success: function(data) {
 //	            console.log(data.quantity - Number(orderItemTable[barcode][1])+quantity_in_edit);
-if((data.quantity - quantity_in_edit) < 0)  alert("Not available");
+if((data.quantity - quantity_in_edit) < 0)  alert("Not available.Max quantity available is  :"+data.quantity);
 
 else{
 	orderItemTable[barcode][1] =  quantity_in_edit;

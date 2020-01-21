@@ -19,19 +19,20 @@ public class InventoryService {
     private InventoryDto inventoryDto;
 
     @Transactional
-    public void add(InventoryPojo i) throws ApiException {
+    public InventoryPojo add(InventoryPojo i) throws ApiException {
 
         InventoryPojo exist = inventory_dao.select(i.getInventory_id());
 
         if (i.getQuantity() < 0) {
             throw new ApiException("Fill quantity value or cant be negative");
         }
-        if (exist == null && i.getQuantity() == i.getQuantity()) inventory_dao.insert(i);
+        if (exist == null && i.getQuantity() == i.getQuantity()) return inventory_dao.insert(i);
         else {
             int new_quantity = i.getQuantity() + exist.getQuantity();
             exist.setQuantity(new_quantity);
 //            update(i.getInventory_id() , exist);
         }
+        return null;
     }
 
     @Transactional(rollbackOn = ApiException.class)

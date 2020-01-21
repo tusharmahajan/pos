@@ -22,6 +22,7 @@ public class ProductDao extends AbstractDao {
     @Transactional
     public ProductPojo insert(ProductPojo p) {
         em.persist(p);
+        em.flush();
         return p;
     }
 

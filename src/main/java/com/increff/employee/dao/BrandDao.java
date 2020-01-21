@@ -23,6 +23,7 @@ public class BrandDao extends AbstractDao {
     @Transactional
     public BrandPojo insert(BrandPojo p) {
         em.persist(p);
+        em.flush();
         return p;
     }
 

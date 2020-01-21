@@ -36,6 +36,7 @@ public class ProductService {
             throw new ApiException("name cannot be empty");
         }
 
+        if(p.getMrp() < 0 ) throw new ApiException("MRP cannot be negative");
         BrandPojo temp_id = productDto.tempID(brand ,category);
 
         if (temp_id != null) {
