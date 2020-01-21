@@ -5,26 +5,26 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.increff.employee.pojo.EmployeePojo;
+import com.increff.employee.pojo.BrandPojo;
 
 public class EmployeeServiceTest extends AbstractUnitTest {
 
 	@Autowired
-	private EmployeeService service;
+	private BrandService service;
 
 	@Test
 	public void testAdd() throws ApiException {
-		EmployeePojo p = new EmployeePojo();
-		p.setName(" Romil Jain ");
+		BrandPojo p = new BrandPojo();
+		p.setBrand(" Romil Jain ");
 		service.add(p);
 	}
 
 	@Test
 	public void testNormalize() {
-		EmployeePojo p = new EmployeePojo();
-		p.setName(" Romil Jain ");
-		EmployeeService.normalize(p);
-		assertEquals("romil jain", p.getName());
+		BrandPojo p = new BrandPojo();
+		p.setBrand(" Romil Jain ");
+		BrandService.normalize(p);
+		assertEquals("romil jain", p.getBrand());
 	}
 
 }

@@ -1,0 +1,234 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+<div class="container">
+
+    <h3 class="text-center">Product details</h3>
+    <!-- Top row with form-->
+    <form class="form-horizontal" id="product-form">
+
+        <div class="dropdown">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Brand</h4>
+                        <select class="form-control" id="selectBrand" name="brand">
+                            <option>Select Brand</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>Category</h4>
+                        <select class="form-control" id="selectCategory" name="category">
+                            <option>-- --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        &nbsp;
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="product-form1">
+                    <div class="row">
+                        <label class="col-form-label" for="inputPName">Product Name</label>
+                        <div class="form-group col-md-3">
+                            <input class="form-control" id="inputPName" name="name" placeholder="enter product"
+                                   type="text">
+                        </div>
+                        &nbsp;
+                        <label class="col-form-label" for="inputBarcode">Barcode</label>
+                        <div class="form-group col-md-3">
+                            <input class="form-control" id="inputBarcode" name="barcode" placeholder="enter barcode"
+                                   type="text">
+                        </div>
+                        &nbsp;
+
+                        <label class="col-form-label" for="inputMrp">MRP</label>
+                        <div class="form-group col-md-3">
+                            <input class="form-control" id="inputMrp" name="mrp" placeholder="enter mrp"
+                                   type="text">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Blank Row -->
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <button class="btn btn-primary" id="add-product" type="button">Add</button>
+                    &nbsp;
+                    <button class="btn btn-primary" id="refresh-data" type="button">Refresh</button>
+                    &nbsp;
+                    <button class="btn btn-primary" id="upload-data" type="button">Upload</button>
+                </form>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Blank Row -->
+<div class="row">
+    &nbsp;
+</div>
+<div class="row">
+
+    <!-- Table -->
+    <div class="col-12">
+        <table class="table table-striped" id="product-table">
+            <thead>
+            <tr>
+                <th scope="col">ProductID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Brand name</th>
+                <th scope="col">Category</th>
+                <th scope="col">MRP</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!-- Product Edit Modal -->
+<div class="modal" id="edit-product-modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Product</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" id="product-edit-form">
+
+                    <div class="dropdown">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h2>Brand</h2>
+                                <select class="form-control" id="selectBrand1" name="brand">
+                                    <option>Select Brand</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <h2>Category</h2>
+                                <select class="form-control" id="selectCategory1" name="category">
+                                    <option>-- --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="inputPName">Product Name</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="name" placeholder="enter name" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="inputMrp">Mrp</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="mrp" placeholder="enter mrp" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="inputBarcode">Barcode</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="barcode" placeholder="enter barcode" type="text">
+                        </div>
+                    </div>
+
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-2 col-form-label">Brand_category</label>-->
+                    <!--                        <div class="col-sm-10">-->
+                    <!--                            <input class="form-control" name="brand_category" placeholder="enter brand_category"-->
+                    <!--                                   type="text">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-2 col-form-label" for="inputName">Brand Name</label>-->
+                    <!--                        <div class="col-sm-10">-->
+                    <!--                            <input class="form-control" id="inputName" name="brand" placeholder="enter name"-->
+                    <!--                                   type="text">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label class="col-sm-2 col-form-label" for="inputCategory">Category</label>-->
+                    <!--                        <div class="col-sm-10">-->
+                    <!--                            <input class="form-control" id="inputCategory" name="category" placeholder="enter category"-->
+                    <!--                                   type="text">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <input name="product_id" type="hidden">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <button class="btn btn-primary" id="update-product" type="button">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Edit Modal -->
+<div class="modal" id="upload-product-modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Product</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="product-file">
+                    <input class="custom-file-input" id="productFile" type="file">
+                    <label class="custom-file-label" for="productFile" id="productFileName">Choose file</label>
+                </div>
+                <a target="_blank" th:href="@{/sample/product.tsv}">Download Sample</a>
+                <br>
+                Rows: <span id="rowCount">0</span>,
+                Processed: <span id="processCount">0</span>,
+                Errors: <span id="errorCount">0</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <button class="btn btn-primary" id="process-data" type="button">Upload</button>
+                <button class="btn btn-warning" id="download-errors" type="button">Download Errors</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div> <!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/product.js}"></script>
+
+</body>
+
+</html>
