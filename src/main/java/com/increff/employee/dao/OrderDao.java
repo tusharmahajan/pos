@@ -1,7 +1,6 @@
 package com.increff.employee.dao;
 
 import com.increff.employee.pojo.OrderPojo;
-import com.increff.employee.pojo.ProductPojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

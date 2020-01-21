@@ -1,10 +1,6 @@
 package com.increff.employee.dao;
 
-import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.OrderItemPojo;
-
-import com.increff.employee.pojo.OrderPojo;
-import com.increff.employee.pojo.ProductPojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,7 +14,7 @@ public class OrderItemDao extends AbstractDao {
 
     private static String select = "select o from OrderItemPojo o where productId =:productId";
     private static String select_all = "select o from OrderItemPojo o";
-    private static String select_o  = "select p from OrderItemPojo p where order_id =:order_id";
+    private static String select_o = "select p from OrderItemPojo p where order_id =:order_id";
 
     @PersistenceContext
     private EntityManager em;

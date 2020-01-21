@@ -24,7 +24,6 @@ public class SalesApiController {
     @ApiOperation(value = "Gets sales reports")
     @RequestMapping(path = "/api/salesreport", method = RequestMethod.POST)
     public List<SalesReportData> get(@RequestBody SalesReportForm form) throws ApiException {
-//        System.out.println(form);
         return salesReportDto.get(form);
     }
 

@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class ProductDao extends AbstractDao{
+public class ProductDao extends AbstractDao {
 
     private static String select_id = "select p from ProductPojo p where id=:id";
     private static String select_all = "select p from ProductPojo p";
@@ -31,7 +31,7 @@ public class ProductDao extends AbstractDao{
 //        return query.executeUpdate();
 //    }
 
-    public ProductPojo selectBar(String barcode){
+    public ProductPojo selectBar(String barcode) {
         TypedQuery<ProductPojo> query = getQuery(select_bar, ProductPojo.class);
         query.setParameter("barcode", barcode);
         return getSingle(query);

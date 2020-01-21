@@ -45,10 +45,7 @@ public class ProductService {
         throw new ApiException();
     }
 
-//    @Transactional
-//    public void delete(int id) {
-//        dao.delete(id);
-//    }
+
 
     @Transactional(rollbackOn = ApiException.class)
     public ProductPojo get(int id) throws ApiException {

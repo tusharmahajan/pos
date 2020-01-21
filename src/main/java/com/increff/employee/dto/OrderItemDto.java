@@ -22,22 +22,19 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class OrderItemDto {
 
+    public final String xmlFilePath = "./invoice.xml";
     @Autowired
     private ProductService productService;
-
     @Autowired
     private OrderItemService orderItemService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private InventoryService inventoryService;
 
@@ -50,7 +47,7 @@ public class OrderItemDto {
 //            System.out.println(entry);
             orderItemService.add(convert(order, entry));
         }
-        make(form,order.getOrderId());
+        make(form, order.getOrderId());
     }
 
     public OrderItemData getProduct(String barcode) throws ApiException {
@@ -79,9 +76,7 @@ public class OrderItemDto {
         return p;
     }
 
-    public  final String xmlFilePath = "./invoice.xml";
-
-    public void make(List<OrderItemForm> form,int id) throws ParserConfigurationException, ApiException, TransformerException {
+    public void make(List<OrderItemForm> form, int id) throws ParserConfigurationException, ApiException, TransformerException {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
@@ -91,11 +86,10 @@ public class OrderItemDto {
         // root element
         Element root = document.createElement("InvoiceData");
         document.appendChild(root);
-        Double sum=0.0;
-        int sno=1;
-        for(OrderItemForm f:form)
-        {
-            ProductPojo p=productService.getBarcodePojo(f.getBarcode());
+        Double sum = 0.0;
+        int sno = 1;
+        for (OrderItemForm f : form) {
+            ProductPojo p = productService.getBarcodePojo(f.getBarcode());
             Element product = document.createElement("invoice");
             root.appendChild(product);
             Element count = document.createElement("sno");
@@ -114,16 +108,16 @@ public class OrderItemDto {
             mrp.appendChild(document.createTextNode(Double.toString(p.getMrp())));
             product.appendChild(mrp);
             Element totalPrice = document.createElement("totalPrice");
-            totalPrice.appendChild(document.createTextNode(Double.toString(f.getQuantity()*p.getMrp())));
+            totalPrice.appendChild(document.createTextNode(Double.toString(f.getQuantity() * p.getMrp())));
             product.appendChild(totalPrice);
-            sum+=(p.getMrp()*f.getQuantity());
-            sno+=1;
+            sum += (p.getMrp() * f.getQuantity());
+            sno += 1;
         }
-        Element totalPrice=document.createElement("totalAmount");
+        Element totalPrice = document.createElement("totalAmount");
         totalPrice.appendChild(document.createTextNode(Double.toString(sum)));
         root.appendChild(totalPrice);
 
-        Element orderId=document.createElement("ID");
+        Element orderId = document.createElement("ID");
         orderId.appendChild(document.createTextNode(Integer.toString(id)));
         root.appendChild(orderId);
 

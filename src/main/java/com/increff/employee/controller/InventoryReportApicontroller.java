@@ -3,7 +3,6 @@ package com.increff.employee.controller;
 
 import com.increff.employee.dto.InventoryReportDto;
 import com.increff.employee.model.InventoryReportData;
-import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +21,7 @@ public class InventoryReportApicontroller {
     private InventoryReportDto inventoryReportDto;
 
     @ApiOperation(value = "Inventory report")
-    @RequestMapping(path = "/api/inventoryreport" , method = RequestMethod.GET)
+    @RequestMapping(path = "/api/inventoryreport", method = RequestMethod.GET)
     public List<InventoryReportData> get() throws ApiException {
         return inventoryReportDto.getall();
     }

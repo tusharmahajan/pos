@@ -31,15 +31,14 @@ public class InventoryReportDto {
 
         List<InventoryPojo> inventoryPojos = inventoryService.getAll();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(InventoryPojo i : inventoryPojos){
-            if(map.containsKey(productService.get(i.getInventory_id()).getBrand_category())){
-                map.put(productService.get(i.getInventory_id()).getBrand_category(),i.getQuantity() + i.getQuantity());
-            }
-            else{
-                map.put(productService.get(i.getInventory_id()).getBrand_category(),i.getQuantity());
+        for (InventoryPojo i : inventoryPojos) {
+            if (map.containsKey(productService.get(i.getInventory_id()).getBrand_category())) {
+                map.put(productService.get(i.getInventory_id()).getBrand_category(), i.getQuantity() + i.getQuantity());
+            } else {
+                map.put(productService.get(i.getInventory_id()).getBrand_category(), i.getQuantity());
             }
         }
-        for(Integer i : map.keySet()){
+        for (Integer i : map.keySet()) {
             InventoryReportData inventoryReportData1 = new InventoryReportData();
             inventoryReportData1.setQuantity(map.get(i));
             inventoryReportData1.setBrand(brandService.get(i).getBrand());

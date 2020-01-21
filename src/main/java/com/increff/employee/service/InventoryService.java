@@ -26,7 +26,7 @@ public class InventoryService {
         if (i.getQuantity() < 0) {
             throw new ApiException("Fill quantity value or cant be negative");
         }
-        if (exist == null && i.getQuantity() == (int)i.getQuantity())  inventory_dao.insert(i);
+        if (exist == null && i.getQuantity() == i.getQuantity()) inventory_dao.insert(i);
         else {
             int new_quantity = i.getQuantity() + exist.getQuantity();
             exist.setQuantity(new_quantity);

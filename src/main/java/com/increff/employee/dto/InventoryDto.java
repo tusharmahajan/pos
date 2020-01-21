@@ -8,8 +8,6 @@ import com.increff.employee.service.InventoryService;
 import com.increff.employee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class InventoryDto {
 
     public void update(int id, InventoryForm f) throws ApiException {
         InventoryPojo p = convert(f);
-        inventoryService.update(id, p );
+        inventoryService.update(id, p);
     }
 
     public String get_barcode(int id) throws ApiException {

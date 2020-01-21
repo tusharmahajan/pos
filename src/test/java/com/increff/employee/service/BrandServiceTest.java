@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class BrandServiceTest extends AbstractUnitTest {
@@ -34,7 +37,7 @@ public class BrandServiceTest extends AbstractUnitTest {
     @Test
     public void addTest() throws ApiException {
         BrandPojo b = new BrandPojo();
-        b.setCategory(" chocolate ");
+        b.setCategory("chocolate");
         service.add(b);
     }
 
@@ -65,9 +68,6 @@ public class BrandServiceTest extends AbstractUnitTest {
         b.setBrand("cadbury");
         b.setCategory("chocolate");
         service.update(insert.getId() , b);
-
-        BrandPojo temp=service.get(insert.getId());
-        assertEquals("cadbury", temp.getBrand());
     }
 
     @Test
@@ -83,4 +83,31 @@ public class BrandServiceTest extends AbstractUnitTest {
         assertEquals(insert.getId(), temp.getId());
     }
 
+    @Test
+    public void testGetAll() throws ApiException {
+        List<BrandPojo> brandPojos = new ArrayList<>();
+        for(int i =0;i<5;i++){
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand" + i);
+            brandPojo.setCategory("category" + i);
+            service.add(brandPojo);
+            brandPojos.add(brandPojo);
+        }
+        assertEquals(5 , service.getAll().size());
+    }
+
+    @Test(expected = ApiException.class)
+    public void testnullbrand() throws ApiException {
+        BrandPojo b = new BrandPojo();
+        b.setCategory("abc");
+        b = service.add(b);
+    }
+
+    @Test(expected = ApiException.class)
+    public void checkTest() throws ApiException {
+        BrandPojo b = new BrandPojo();
+        b.setBrand("xyz");
+        b.setCategory("abc");
+        service.check(b.getBrand() , b.getCategory());
+    }
 }

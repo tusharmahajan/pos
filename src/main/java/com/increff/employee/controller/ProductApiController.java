@@ -1,4 +1,5 @@
 package com.increff.employee.controller;
+
 import com.increff.employee.dto.ProductDto;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
@@ -28,7 +29,7 @@ public class ProductApiController {
     @ApiOperation(value = "Gets an product by ID")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
 
-    public ProductData get(@PathVariable int id ) throws ApiException {
+    public ProductData get(@PathVariable int id) throws ApiException {
 
         return productDto.get(id);
     }
@@ -43,7 +44,7 @@ public class ProductApiController {
     @ApiOperation(value = "Updates an product")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
-        productDto.update(id , f);
+        productDto.update(id, f);
     }
 
 
