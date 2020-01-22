@@ -34,7 +34,7 @@ public class BrandServiceTest extends AbstractUnitTest {
         assertEquals("chocolate" , b.getCategory());
     }
 
-    @Test
+    @Test(expected = ApiException.class)
     public void addTest() throws ApiException {
         BrandPojo b = new BrandPojo();
         b.setCategory("chocolate");
@@ -49,7 +49,7 @@ public class BrandServiceTest extends AbstractUnitTest {
         service.add(b);
     }
 
-    @Test
+    @Test(expected = ApiException.class)
     public void addTest2() throws ApiException {
         BrandPojo b = new BrandPojo();
         b.setBrand(" cadbury ");
@@ -86,7 +86,7 @@ public class BrandServiceTest extends AbstractUnitTest {
     @Test
     public void testGetAll() throws ApiException {
         List<BrandPojo> brandPojos = new ArrayList<>();
-        for(int i =0;i<5;i++){
+        for(int i = 0;i<5;i++){
             BrandPojo brandPojo = new BrandPojo();
             brandPojo.setBrand("brand" + i);
             brandPojo.setCategory("category" + i);

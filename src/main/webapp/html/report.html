@@ -1,105 +1,109 @@
-    <!doctype html>
+<!doctype html>
 
-    <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <head th:replace="snippets.html :: name_head" ></head>
+<head th:replace="snippets.html :: name_head"></head>
 
-    <body>
+<body>
 
-        <nav th:replace="snippets.html :: name_app_navbar"></nav>
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
 
-        <div class="container" >
+<div class="container">
 
-            <div class="row">
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="sales-report">Sales report</button>
-                </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary" id="sales-report" type="button">Sales report</button>
+        </div>
 
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="inventory-report">Inventory report</button>
-                </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" id="inventory-report" type="button">Inventory report</button>
+        </div>
 
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="brand-report">Brand report</button>
-                </div>
-            </div>
-            &nbsp;
-            <div class="row">
-               <!-- Table -->
-               <div class="col-12">
-                <table class="table table-striped" id="report-table">
-                  <thead>
-                  </thead>
-                  <tbody>
-                  </tbody>
-              </table>
+        <div class="col-md-2">
+            <button class="btn btn-primary" id="brand-report" type="button">Brand report</button>
+        </div>
+    </div>
+    &nbsp;
+    <div class="row">
+        <!-- Table -->
+        <div class="col-12">
+            <table class="table table-striped" id="report-table">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
-          </div>
-      </div>
+        </div>
+    </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id="sales-report-modal">
-          <div class="modal-dialog" role="document">
+    <div class="modal" id="sales-report-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Sales Report</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-                <div class="col-12">
-                    <form class="form-inline" id="report-form">
-                      <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <label for="inputStartDate" class="col-sm-2 col-form-label">StartDate</label>
-                                    <input type="date" class="form-control" name="startdate" id="inputStartDate" placeholder="enter Start Date">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sales Report</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="form-inline" id="report-form">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label class="col-sm-2 col-form-label"
+                                                       for="inputStartDate">StartDate</label>
+                                                <input class="form-control" id="inputStartDate" name="startdate"
+                                                       placeholder="enter Start Date" type="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-6'>
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label class="col-sm-2 col-form-label"
+                                                       for="inputEndDate">EndDate</label>
+                                                <input class="form-control" id="inputEndDate" name="endate" placeholder="enter End Date"
+                                                       type="date">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class='col-6'>
-                            <div class="form-group">
-                                <div class="col-sm-6">  
-                                    <label for="inputEndDate" class="col-sm-2 col-form-label">EndDate</label>
-                                    <input type="date" class="form-control" name="endate" id="inputEndDate" placeholder="enter End Date">
+                                <input class="form-control" id="brand" name="brand" type="hidden">
+                                <input class="form-control" id="category" name="category" type="hidden">
+                            </form>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="col-sm-2 col-form-label" for="selectBrand">Brand</label>
+                                    <select class="form-control" id="selectBrand">
+                                        <option>-- --</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="col-sm-2 col-form-label" for="selectCategory">Category</label>
+                                    <select class="form-control" id="selectCategory">
+                                        <option>-- --</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" class="form-control" name="brand" id="brand">
-                    <input type="hidden" class="form-control" name="category" id="category">
-                </form>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="selectBrand" class="col-sm-2 col-form-label">Brand</label>
-                        <select class="form-control" id="selectBrand">
-                          <option>--    --</option>
-                      </select>    
-                  </div>
-
-                  <div class="col-md-3">
-                    <label for="selectCategory" class="col-sm-2 col-form-label">Category</label>
-                    <select class="form-control" id="selectCategory">
-                      <option>--    --</option>
-                  </select>    
-              </div>
-          </div>
-      </div> 
-  </div> 
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-    <button type="button" class="btn btn-primary" id="generate-report">  Generate report  </button>
-</div>
-</div>
-</div>
-</div>
-<!-- Blank Row -->
-<div class="row">
-    &nbsp;
-</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                    <button class="btn btn-primary" id="generate-report" type="button"> Generate report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blank Row -->
+    <div class="row">
+        &nbsp;
+    </div>
 
 </div> <!-- Container end-->
 
@@ -107,6 +111,6 @@
 
 <script th:src="@{/static/report.js}"></script>
 
-</body> 
+</body>
 
 </html>

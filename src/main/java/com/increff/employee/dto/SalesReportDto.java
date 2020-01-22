@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class SalesReportDto {
     private BrandService brandService;
 
     public List<SalesReportData> get(SalesReportForm form) throws ApiException {
+//        System.out.println(form.getBrand().isEmpty()+" " + form.getCategory().isEmpty() + " "+form.getStartdate());
+        if(form.getEndate() == null){
+            form.setEndate(new Date());
+        }
+        if(form.getStartdate().compareTo(form.getEndate())>0) throw new ApiException("Start Date cannot be more than EndDate");
         return convert(form);
     }
 
@@ -36,11 +42,14 @@ public class SalesReportDto {
         List<SalesReportData> reportDataList=new ArrayList<SalesReportData>();
         List<OrderPojo> orders = orderService.get(form.getStartdate(),form.getEndate());
         List<OrderItemPojo> orderItems = new ArrayList<OrderItemPojo>();
+//        System.out.println(orders);
+//        System.out.println("hey");
         for(OrderPojo order : orders) {
             List<OrderItemPojo> oip=orderItemsService.getorder(order.getOrderId());
             for(OrderItemPojo op : oip){
                 orderItems.add(op);
             }
+//            System.out.println(orderItems);
         }
 
         if(form.getBrand().isEmpty() && form.getCategory().isEmpty()){
@@ -59,6 +68,7 @@ public class SalesReportDto {
                     array[1]=orderItem.getQuantity()*orderItem.getSellingPrice();
                     categoryMap.put(brand.getCategory(),array);
                 }
+                System.out.println(categoryMap.values());
             }
             for (String category : categoryMap.keySet())
             {

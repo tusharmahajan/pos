@@ -64,8 +64,8 @@ public class InventoryDto {
         InventoryData d = new InventoryData();
         d.setQuantity(p.getQuantity());
         d.setInventory_id(p.getInventory_id());
-        d.setBarcode(inventoryService.get_barcode(p.getInventory_id()));
-        d.setProduct_name(inventoryService.get_productname(p.getInventory_id()));
+        d.setBarcode(get_barcode(p.getInventory_id()));
+        d.setProduct_name(get_productname(p.getInventory_id()));
         return d;
     }
 
@@ -73,7 +73,7 @@ public class InventoryDto {
         InventoryPojo p = new InventoryPojo();
         p.setQuantity(f.getQuantity());
 
-        p.setInventory_id(inventoryService.get_product_id(f.getBarcode()));
+        p.setInventory_id(get_product_id(f.getBarcode()));
         return p;
     }
 }

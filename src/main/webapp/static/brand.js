@@ -11,7 +11,7 @@ function addBrand(event){
 	var $form = $("#brand-form");
 	var json = toJson($form);
 	var url = getBrandUrl();
-//console.log(json.name+" "+json.category);
+console.log(json);
 	$.ajax({
 	   url: url,
 	   type: 'POST',
@@ -28,6 +28,19 @@ function addBrand(event){
 
 return false;
 }
+
+function toJson($form){
+    var serialized = $form.serializeArray();
+    console.log(serialized);
+    var s = '';
+    var data = {};
+    for(s in serialized){
+        data[serialized[s]['name']] = serialized[s]['value']
+    }
+    var json = JSON.stringify(data);
+    return json;
+}
+
 
 function updateBrand(event){
 	$('#edit-brand-modal').modal('toggle');

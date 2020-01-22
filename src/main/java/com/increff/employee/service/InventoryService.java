@@ -30,7 +30,6 @@ public class InventoryService {
         else {
             int new_quantity = i.getQuantity() + exist.getQuantity();
             exist.setQuantity(new_quantity);
-//            update(i.getInventory_id() , exist);
         }
         return null;
     }
@@ -44,11 +43,10 @@ public class InventoryService {
             ip.setInventory_id(p.getInventory_id());
             ip.setQuantity(p.getQuantity());
             inventory_dao.update(ip);
-        } else {
-            throw new ApiException("Quantity doesn't exist");
+            return;
         }
+            throw new ApiException("Quantity doesn't exist");
     }
-
     @Transactional(rollbackOn = ApiException.class)
     public InventoryPojo getInventoryPojo(int id) throws ApiException {
         return inventory_dao.select(id);
@@ -59,16 +57,4 @@ public class InventoryService {
         return inventory_dao.selectAll();
     }
 
-    public String get_barcode(int id) throws ApiException {
-        return inventoryDto.get_barcode(id);
-    }
-
-    public String get_productname(int id) throws ApiException {
-
-        return inventoryDto.get_productname(id);
-    }
-
-    public int get_product_id(String barcode) throws ApiException {
-        return inventoryDto.get_product_id(barcode);
-    }
 }

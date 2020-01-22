@@ -18,10 +18,9 @@ function getReport(event){
     fillCategoryDropInit($('#selectCategory'));
     var $form = $("#report-form");
     var json = toJson($form);
-    // console.log(json);
     var url = getReportUrl();
-    console.log(url);
-     //console.log(json.productName+ ' ' + json.category);
+//    console.log(url);
+//     console.log(json);
      $.ajax({
       url: url,
       type: 'POST',
@@ -31,11 +30,25 @@ function getReport(event){
       },
       success: function(response) {
         displaySalesReport(response)
+//        console.log("hi success");
       },
       error: handleAjaxError
     });
     //return false;
   }
+
+  function toJson($form){
+      var serialized = $form.serializeArray();
+      console.log(serialized);
+      var s = '';
+      var data = {};
+      for(s in serialized){
+          data[serialized[s]['name']] = serialized[s]['value']
+      }
+      var json = JSON.stringify(data);
+      return json;
+  }
+
 
   function displaySalesReport(data){
     console.log(data);
@@ -49,7 +62,7 @@ function getReport(event){
     + '</tr>'
     $thead.append(row);
     $tbody.empty();
-
+    console.log(data);
     for(var i in data){
       var e = data[i];
       var row = '<tr>'
