@@ -106,4 +106,13 @@ public class InventoryServiceTest extends AbstractUnitTest {
 
     }
 
+    @Test
+    public void InventoryPojotest() throws ApiException {
+        InventoryPojo i = new InventoryPojo();
+        i.setInventory_id(20);
+        i.setQuantity(100);
+        inventoryService.add(i);
+        assertEquals(inventoryService.getInventoryPojo(i.getInventory_id()).getInventory_id() , i.getInventory_id());
+    }
+
 }

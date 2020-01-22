@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public class OrderItemDao extends AbstractDao {
 
-    private static String select = "select o from OrderItemPojo o where productId =:productId";
-    private static String select_all = "select o from OrderItemPojo o";
+//    private static String select = "select o from OrderItemPojo o where productId =:productId";
+//    private static String select_all = "select o from OrderItemPojo o";
     private static String select_o = "select p from OrderItemPojo p where order_id =:order_id";
 
     @PersistenceContext
