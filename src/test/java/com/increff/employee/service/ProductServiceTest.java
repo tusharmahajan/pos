@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
 
 public class ProductServiceTest extends AbstractUnitTest {
 
@@ -62,8 +63,25 @@ public class ProductServiceTest extends AbstractUnitTest {
 
     }
 
+//    @Test
+//    public void nulladdTest() throws ApiException {
+//        ProductPojo p = new ProductPojo();
+//        p.setBarcode("9000");
+//        p.setName("5 star");
+//        p.setMrp(90.0);
+//
+//        BrandPojo b = new BrandPojo();
+//        b.setBrand("hp");
+//        b.setCategory("envy");
+//
+//        b = brandService.add(b);
+//        p.setBrand_category(11);
+//
+//       assertEquals(null , productService.add(p, "hp1", "envy"));
+////        assertNull(p);
+//    }
     @Test(expected = ApiException.class)
-    public void nullbrandtest() throws ApiException {
+    public void nullBrandTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("9000");
         p.setName("5 star");
@@ -77,7 +95,7 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void nullcategorytest() throws ApiException {
+    public void nullCategoryTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("9000");
         p.setName("5 star");
@@ -91,7 +109,7 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void nullnametest() throws ApiException {
+    public void nullNameTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("9000");
         p.setName("");
@@ -105,7 +123,7 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void nullbarcodetest() throws ApiException {
+    public void nullBarcodeTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("");
         p.setName("oil1");
@@ -119,7 +137,20 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void negativemrptest() throws ApiException {
+    public void nullMrpTest() throws ApiException {
+        ProductPojo p = new ProductPojo();
+        p.setBarcode("989");
+        p.setName("oil1");
+        p.setMrp(null);
+
+        BrandPojo b = new BrandPojo();
+        b.setBrand("hp");
+        b.setCategory("envy");
+        productService.add(p, "hp", "envy");
+
+    }
+    @Test(expected = ApiException.class)
+    public void negativeMrpTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("");
         p.setName("oil1");
@@ -133,22 +164,8 @@ public class ProductServiceTest extends AbstractUnitTest {
 
     }
 
-    @Test(expected = ApiException.class)
-    public void nullmrptest() throws ApiException {
-        ProductPojo p = new ProductPojo();
-        p.setBarcode("");
-        p.setName("oil1");
-        p.setMrp(null);
-
-        BrandPojo b = new BrandPojo();
-        b.setBrand("hp");
-        b.setCategory("envy");
-        productService.add(p, "hp", "envy");
-
-    }
-
     @Test
-    public void testupdate() throws ApiException {
+    public void testUpdate() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("900");
         p.setName("oil");
@@ -170,7 +187,7 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void testupdateBarcode() throws ApiException {
+    public void testUpdateBarcode() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("800");
         p.setName("oil");
@@ -204,7 +221,7 @@ public class ProductServiceTest extends AbstractUnitTest {
         b = brandService.add(b);
 
         p = productService.add(p, "hp", "envy");
-        assertEquals(productService.get_category(p.getBrand_category()) ,b.getCategory());
+        assertEquals(productService.getCategory(p.getBrand_category()) ,b.getCategory());
     }
 
     @Test
@@ -221,11 +238,11 @@ public class ProductServiceTest extends AbstractUnitTest {
         p.setBrand_category(b.getId());
 
         p = productService.add(p, "hp", "envy");
-        assertEquals(productService.get_brand(p.getBrand_category()) ,b.getBrand());
+        assertEquals(productService.getBrand(p.getBrand_category()) ,b.getBrand());
     }
 
     @Test
-    public void productIdtest() throws ApiException {
+    public void productIdTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setBarcode("800");
         p.setName("oil");
@@ -238,11 +255,11 @@ public class ProductServiceTest extends AbstractUnitTest {
         p.setBrand_category(b.getId());
 
         p = productService.add(p, "hp", "envy");
-        assertEquals(productService.get_product_id(p.getBarcode()), p.getProduct_id());
+        assertEquals(productService.getProductId(p.getBarcode()), p.getProduct_id());
     }
 
     @Test(expected = ApiException.class)
-    public void errorProductIdtest() throws ApiException {
+    public void errorProductIdTest() throws ApiException {
         ProductPojo p = new ProductPojo();
         p.setName("oil");
         p.setMrp(10.0);
@@ -254,7 +271,7 @@ public class ProductServiceTest extends AbstractUnitTest {
         p.setBrand_category(b.getId());
 
         p = productService.add(p, "hp", "envy");
-        assertEquals(productService.get_product_id("900"), p.getProduct_id());
+        assertEquals(productService.getProductId("900"), p.getProduct_id());
     }
 
     @Test
@@ -271,7 +288,7 @@ public class ProductServiceTest extends AbstractUnitTest {
 
         p = productService.add(p, "hp", "envy");
 
-        ProductPojo p1 = productService.get(p.getProduct_id());
+        ProductPojo p1 = productService.getCheck(p.getProduct_id());
         assertEquals(p.getProduct_id(), p1.getProduct_id());
     }
 
@@ -289,9 +306,9 @@ public class ProductServiceTest extends AbstractUnitTest {
         p.setBrand_category(b.getId());
 
         p = productService.add(p, "hp", "envy");
-        ProductPojo p1 = productService.get(p.getProduct_id());
+        ProductPojo p1 = productService.getCheck(p.getProduct_id());
 
-        assertEquals(productService.getmrp(p.getBarcode()), p1.getMrp());
+        assertEquals(productService.getMrp(p.getBarcode()), p1.getMrp());
     }
 
     @Test
@@ -337,4 +354,25 @@ public class ProductServiceTest extends AbstractUnitTest {
         assertEquals(p.getProduct_id() , p1.getProduct_id());
     }
 
+    @Test(expected = ApiException.class)
+    public void testUpdate1() throws ApiException {
+        ProductPojo p = new ProductPojo();
+        p.setBarcode("900");
+        p.setName("oil");
+        p.setMrp(10.0);
+
+        BrandPojo b = new BrandPojo();
+        b.setBrand("hp");
+        b.setCategory("envy");
+        b = brandService.add(b);
+        p = productService.add(p, "hp", "envy");
+
+        ProductPojo p1 = new ProductPojo();
+        p1.setBarcode("900");
+        p1.setName("butter");
+        p1.setMrp(11.0);
+        p1.setProduct_id(1);
+        p1.setBrand_category(b.getId());
+        productService.update(p.getProduct_id(), p1, "hp", "envy");
+    }
 }

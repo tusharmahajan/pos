@@ -4,8 +4,8 @@ import com.increff.employee.dao.OrderItemDao;
 import com.increff.employee.pojo.OrderItemPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -20,8 +20,9 @@ public class OrderItemService {
         orderItemDao.insert(orderItem);
     }
 
-    public List<OrderItemPojo> getorder(int id){
-        return orderItemDao.selectall(id);
+    @Transactional(readOnly = true)
+    public List<OrderItemPojo> getOrder(int id){
+        return orderItemDao.selectAll(id);
     }
 
 }

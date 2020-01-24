@@ -79,9 +79,10 @@ public class BrandServiceTest extends AbstractUnitTest {
 
         insert = service.add(insert);
 
-        BrandPojo temp=service.get(insert.getId());
+        BrandPojo temp=service.getCheck(insert.getId());
         assertEquals(insert.getId(), temp.getId());
     }
+
 
     @Test
     public void testGetAll() throws ApiException {
@@ -97,7 +98,7 @@ public class BrandServiceTest extends AbstractUnitTest {
     }
 
     @Test(expected = ApiException.class)
-    public void testnullbrand() throws ApiException {
+    public void testNullBrand() throws ApiException {
         BrandPojo b = new BrandPojo();
         b.setCategory("abc");
         b = service.add(b);
@@ -109,5 +110,15 @@ public class BrandServiceTest extends AbstractUnitTest {
         b.setBrand("xyz");
         b.setCategory("abc");
         service.check(b.getBrand() , b.getCategory());
+    }
+
+    @Test(expected = ApiException.class)
+    public void checkTest1() throws ApiException {
+        BrandPojo b = new BrandPojo();
+        b.setBrand("xyz");
+        b.setCategory("abc");
+        service.add(b);
+
+        service.getCheck(11);
     }
 }

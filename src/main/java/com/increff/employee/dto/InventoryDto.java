@@ -47,25 +47,25 @@ public class InventoryDto {
         inventoryService.update(id, p);
     }
 
-    public String get_barcode(int id) throws ApiException {
-        return productService.get(id).getBarcode();
+    public String getBarcode(int id) throws ApiException {
+        return productService.getCheck(id).getBarcode();
     }
 
-    public String get_productname(int id) throws ApiException {
+    public String getProductName(int id) throws ApiException {
 
-        return productService.get(id).getName();
+        return productService.getCheck(id).getName();
     }
 
-    public int get_product_id(String barcode) throws ApiException {
-        return productService.get_product_id(barcode);
+    public int getProductId(String barcode) throws ApiException {
+        return productService.getProductId(barcode);
     }
 
     private InventoryData convert(InventoryPojo p) throws ApiException {
         InventoryData d = new InventoryData();
         d.setQuantity(p.getQuantity());
-        d.setInventory_id(p.getInventory_id());
-        d.setBarcode(get_barcode(p.getInventory_id()));
-        d.setProduct_name(get_productname(p.getInventory_id()));
+        d.setInventoryId(p.getInventoryId());
+        d.setBarcode(getBarcode(p.getInventoryId()));
+        d.setProduct_name(getProductName(p.getInventoryId()));
         return d;
     }
 
@@ -73,7 +73,7 @@ public class InventoryDto {
         InventoryPojo p = new InventoryPojo();
         p.setQuantity(f.getQuantity());
 
-        p.setInventory_id(get_product_id(f.getBarcode()));
+        p.setInventoryId(getProductId(f.getBarcode()));
         return p;
     }
 }

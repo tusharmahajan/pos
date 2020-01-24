@@ -5,8 +5,8 @@ import com.increff.employee.dto.InventoryDto;
 import com.increff.employee.pojo.InventoryPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,10 +18,10 @@ public class InventoryService {
     @Autowired
     private InventoryDto inventoryDto;
 
-    @Transactional
+    @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo add(InventoryPojo i) throws ApiException {
 
-        InventoryPojo exist = inventory_dao.select(i.getInventory_id());
+        InventoryPojo exist = inventory_dao.select(i.getInventoryId());
 
         if (i.getQuantity() < 0) {
             throw new ApiException("Fill quantity value or cant be negative");
@@ -34,25 +34,25 @@ public class InventoryService {
         return null;
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public void update(int id, InventoryPojo p) throws ApiException {
 
         InventoryPojo ip = getInventoryPojo(id);
         // to do weather to update barcode
         if (p.getQuantity() >= 0) {
-            ip.setInventory_id(p.getInventory_id());
+            ip.setInventoryId(p.getInventoryId());
             ip.setQuantity(p.getQuantity());
             inventory_dao.update(ip);
             return;
         }
             throw new ApiException("Quantity doesn't exist");
     }
-    @Transactional(rollbackOn = ApiException.class)
-    public InventoryPojo getInventoryPojo(int id) throws ApiException {
+    @Transactional(readOnly = true)
+    public InventoryPojo getInventoryPojo(int id){
         return inventory_dao.select(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<InventoryPojo> getAll() {
         return inventory_dao.selectAll();
     }

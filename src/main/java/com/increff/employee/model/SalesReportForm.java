@@ -4,15 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SalesReportForm {
-//    @Override
-//    public String toString() {
-//        return "SalesReportForm{" +
-//                "startdate=" + startdate +
-//                ", endate=" + endate +
-//                ", brand='" + brand + '\'' +
-//                ", category='" + category + '\'' +
-//                '}';
-//    }
 
     private Date startdate;
     private Date endate;

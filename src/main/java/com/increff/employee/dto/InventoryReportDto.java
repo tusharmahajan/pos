@@ -26,23 +26,23 @@ public class InventoryReportDto {
     private BrandService brandService;
 
 
-    public List<InventoryReportData> getall() throws ApiException {
+    public List<InventoryReportData> getAll() throws ApiException {
         List<InventoryReportData> inventoryReportData = new ArrayList<>();
 
         List<InventoryPojo> inventoryPojos = inventoryService.getAll();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (InventoryPojo i : inventoryPojos) {
-            if (map.containsKey(productService.get(i.getInventory_id()).getBrand_category())) {
-                map.put(productService.get(i.getInventory_id()).getBrand_category(), i.getQuantity() + i.getQuantity());
+            if (map.containsKey(productService.getCheck(i.getInventoryId()).getBrand_category())) {
+                map.put(productService.getCheck(i.getInventoryId()).getBrand_category(), i.getQuantity() + i.getQuantity());
             } else {
-                map.put(productService.get(i.getInventory_id()).getBrand_category(), i.getQuantity());
+                map.put(productService.getCheck(i.getInventoryId()).getBrand_category(), i.getQuantity());
             }
         }
         for (Integer i : map.keySet()) {
             InventoryReportData inventoryReportData1 = new InventoryReportData();
             inventoryReportData1.setQuantity(map.get(i));
-            inventoryReportData1.setBrand(brandService.get(i).getBrand());
-            inventoryReportData1.setCategory(brandService.get(i).getCategory());
+            inventoryReportData1.setBrand(brandService.getCheck(i).getBrand());
+            inventoryReportData1.setCategory(brandService.getCheck(i).getCategory());
             inventoryReportData.add(inventoryReportData1);
         }
         return inventoryReportData;

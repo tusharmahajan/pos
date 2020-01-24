@@ -5,8 +5,8 @@ import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,12 +15,7 @@ public class BrandService {
     @Autowired
     private BrandDao dao;
 
-    protected static void normalize(BrandPojo p) {
-        p.setBrand(StringUtil.toLowerCase(p.getBrand()));
-        p.setCategory(StringUtil.toLowerCase(p.getCategory()));
-    }
-
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public BrandPojo add(BrandPojo p) throws ApiException {
         normalize(p);
         if (StringUtil.isEmpty(p.getBrand())) {
@@ -32,17 +27,17 @@ public class BrandService {
         return dao.insert(p);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
-    public BrandPojo get(int id) throws ApiException {
-        return getCheck(id);
+    @Transactional(readOnly = true)
+    public BrandPojo get(int id){
+        return dao.select(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BrandPojo> getAll() {
         return dao.selectAll();
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public void update(int id, BrandPojo p) throws ApiException {
         normalize(p);
         BrandPojo ex = getCheck(id);
@@ -51,9 +46,9 @@ public class BrandService {
         dao.update(ex);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = ApiException.class)
     public BrandPojo getCheck(int id) throws ApiException {
-        BrandPojo p = dao.select(id);
+        BrandPojo p = get(id);
         if (p == null) {
             throw new ApiException("Brand with given ID does not exit, id: " + id);
         }
@@ -67,4 +62,10 @@ public class BrandService {
         }
         return p;
     }
+
+    protected static void normalize(BrandPojo p) {
+        p.setBrand(StringUtil.toLowerCase(p.getBrand()));
+        p.setCategory(StringUtil.toLowerCase(p.getCategory()));
+    }
+
 }

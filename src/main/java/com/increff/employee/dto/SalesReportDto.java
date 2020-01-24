@@ -45,7 +45,7 @@ public class SalesReportDto {
 //        System.out.println(orders);
 //        System.out.println("hey");
         for(OrderPojo order : orders) {
-            List<OrderItemPojo> oip=orderItemsService.getorder(order.getOrderId());
+            List<OrderItemPojo> oip=orderItemsService.getOrder(order.getOrderId());
             for(OrderItemPojo op : oip){
                 orderItems.add(op);
             }
@@ -55,7 +55,7 @@ public class SalesReportDto {
         if(form.getBrand().isEmpty() && form.getCategory().isEmpty()){
             HashMap<String ,double[]> categoryMap=new HashMap<String,double[]>();
             for(OrderItemPojo orderItem : orderItems){
-                BrandPojo brand=brandService.get((productService.get(orderItem.getProduct_id())).getBrand_category());
+                BrandPojo brand=brandService.getCheck((productService.getCheck(orderItem.getProduct_id())).getBrand_category());
                 double[] array = new double[2];
                 if(categoryMap.containsKey(brand.getCategory())){
                     array=categoryMap.get(brand.getCategory());
@@ -87,7 +87,7 @@ public class SalesReportDto {
                 salesReportData.setRevenue(0.0);
                 salesReportData.setCategory(form.getCategory());
                 for(OrderItemPojo orderItem : orderItems){
-                    String category=(brandService.get(productService.get(orderItem.getProduct_id()).getBrand_category())).getCategory();
+                    String category=(brandService.getCheck(productService.getCheck(orderItem.getProduct_id()).getBrand_category())).getCategory();
                     if(category.equals(salesReportData.getCategory())){
                         salesReportData.setQuantity(salesReportData.getQuantity()+orderItem.getQuantity());
                         salesReportData.setRevenue(salesReportData.getRevenue()+(orderItem.getQuantity()*orderItem.getSellingPrice()));
@@ -99,7 +99,7 @@ public class SalesReportDto {
                 if(form.getCategory().isEmpty()){
                     HashMap<String ,double[]> categoryMap=new HashMap<String,double[]>();
                     for(OrderItemPojo orderItem : orderItems){
-                        BrandPojo brand=brandService.get((productService.get(orderItem.getProduct_id())).getBrand_category());
+                        BrandPojo brand=brandService.getCheck((productService.getCheck(orderItem.getProduct_id())).getBrand_category());
                         if(brand.getBrand().equals(form.getBrand())){
                             double[] array = new double[2];
                             if(categoryMap.containsKey(brand.getCategory())){
@@ -131,7 +131,7 @@ public class SalesReportDto {
                     salesReportData.setRevenue(0.0);
                     salesReportData.setCategory(form.getCategory());
                     for(OrderItemPojo orderItem : orderItems){
-                        BrandPojo brand=brandService.get(productService.get(orderItem.getProduct_id()).getBrand_category());
+                        BrandPojo brand=brandService.getCheck(productService.getCheck(orderItem.getProduct_id()).getBrand_category());
                         if(brand.getCategory().equals(salesReportData.getCategory()) && brand.getBrand().equals(form.getBrand())){
                             salesReportData.setQuantity(salesReportData.getQuantity()+orderItem.getQuantity());
                             salesReportData.setRevenue(salesReportData.getRevenue()+(orderItem.getQuantity()*orderItem.getSellingPrice()));

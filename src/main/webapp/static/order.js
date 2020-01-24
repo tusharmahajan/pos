@@ -279,7 +279,7 @@ function init(){
 	$('#add-order').click(addOrderItem);
 	$('#order-form').click(addOrder);
 	$('#update-order').click(updateOrder);
-	$('#refresh-page').click(refreshlist);
+//	$('#refresh-page').click(refreshlist);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);

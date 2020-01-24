@@ -34,16 +34,16 @@ public class ProductDto {
         return temp_id;
     }
 
-    public String brandget(int id) throws ApiException {
-        return brandService.get(id).getBrand();
+    public String brandGet(int id) throws ApiException {
+        return brandService.getCheck(id).getBrand();
     }
 
-    public String categoryget(int id) throws ApiException {
-        return brandService.get(id).getCategory();
+    public String categoryGet(int id) throws ApiException {
+        return brandService.getCheck(id).getCategory();
     }
 
     public ProductData get(int id) throws ApiException {
-        ProductPojo p = productService.get(id);
+        ProductPojo p = productService.getCheck(id);
         return convert(p);
     }
 
@@ -67,8 +67,8 @@ public class ProductDto {
         p.setName(f.getName());
         p.setBarcode(f.getBarcode());
         p.setBrand_category(f.getBrand_category());
-        p.setBrand(productService.get_brand(f.getBrand_category()));
-        p.setCategory(productService.get_category(f.getBrand_category()));
+        p.setBrand(productService.getBrand(f.getBrand_category()));
+        p.setCategory(productService.getCategory(f.getBrand_category()));
         p.setMrp(f.getMrp());
         return p;
     }

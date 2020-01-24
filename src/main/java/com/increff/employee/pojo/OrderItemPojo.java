@@ -1,11 +1,9 @@
 package com.increff.employee.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(indexes = @Index(columnList = "order_id , quantity") )
 public class OrderItemPojo {
 
     @Id
@@ -20,17 +18,17 @@ public class OrderItemPojo {
 
     private Double sellingPrice;
 
-    public int getOrderitem_id() {
-        return orderitem_id;
-    }
-
-    public void setOrderitem_id(int orderitem_id) {
-        this.orderitem_id = orderitem_id;
-    }
-
-    public int getOrder_id() {
-        return order_id;
-    }
+//    public int getOrderitem_id() {
+//        return orderitem_id;
+//    }
+//
+//    public void setOrderitem_id(int orderitem_id) {
+//        this.orderitem_id = orderitem_id;
+//    }
+//
+//    public int getOrder_id() {
+//        return order_id;
+//    }
 
     public void setOrder_id(int order_id) {
         this.order_id = order_id;

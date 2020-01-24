@@ -14,14 +14,6 @@ public class OrderItemForm {
         this.barcode = barcode;
     }
 
-//    @Override
-//    public String toString() {
-//        return "OrderItemForm{" +
-//                "barcode='" + barcode + '\'' +
-//                ", quantity=" + quantity +
-//                '}';
-//    }
-
     public int getQuantity() {
         return quantity;
     }

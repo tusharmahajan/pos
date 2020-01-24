@@ -1,7 +1,7 @@
 package com.increff.employee.model;
 
 public class InventoryData extends InventoryForm{
-    private int inventory_id;
+    private int inventoryId;
 
     private String product_name;
 
@@ -13,11 +13,11 @@ public class InventoryData extends InventoryForm{
         this.product_name = product_name;
     }
 
-    public int getInventory_id() {
-        return inventory_id;
+    public int getInventoryId() {
+        return inventoryId;
     }
 
-    public void setInventory_id(int inventory_id) {
-        this.inventory_id = inventory_id;
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
     }
 }

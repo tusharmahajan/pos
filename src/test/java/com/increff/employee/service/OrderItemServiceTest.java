@@ -18,7 +18,7 @@ public class OrderItemServiceTest extends AbstractUnitTest{
     OrderService orderService;
 
     @Test
-    public void addtest(){
+    public void addTest(){
         OrderItemPojo o = new OrderItemPojo();
 
         o.setProduct_id(1);
@@ -29,7 +29,7 @@ public class OrderItemServiceTest extends AbstractUnitTest{
     }
 
     @Test
-    public void getAlltest(){
+    public void getAllTest(){
         OrderPojo o11 = new OrderPojo();
         o11.setTime(new Date());
         orderService.add(o11);
@@ -50,6 +50,6 @@ public class OrderItemServiceTest extends AbstractUnitTest{
         o1.setQuantity(102);
         orderItemService.add(o1);
 
-        assertEquals(2 , orderItemService.getorder(o11.getOrderId()).size());
+        assertEquals(2 , orderItemService.getOrder(o11.getOrderId()).size());
     }
 }

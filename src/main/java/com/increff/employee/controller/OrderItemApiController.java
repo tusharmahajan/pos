@@ -27,7 +27,7 @@ import java.util.List;
 public class OrderItemApiController {
 
 
-    private static final String PATH_TO_Order_XSL = "./templateInvoice.xsl";
+    private static final String PATH_TO_Order_XSL = "src/main/resources/com/increff/employee/templateInvoice.xsl";
     @Autowired
     private OrderItemDto orderItemDto;
 
@@ -49,7 +49,7 @@ public class OrderItemApiController {
     //invoice genration
     @ApiOperation(value = "Invoice generation")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.GET)
-    public void get(HttpServletResponse response) throws ApiException {
+    public void get(HttpServletResponse response) {
         try {
 
             FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
@@ -64,7 +64,7 @@ public class OrderItemApiController {
             Result res = new SAXResult(fop.getDefaultHandler());
 
             //Setup input
-            Source src = new StreamSource(new File("./invoice.xml"));
+            Source src = new StreamSource(new File("src/main/resources/com/increff/employee/invoice.xml"));
 
             transformer.transform(src, res);
             response.setContentType("application/pdf");

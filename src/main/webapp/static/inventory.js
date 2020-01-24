@@ -32,7 +32,7 @@ function getInventoryUrl(){
 function updateInventory(event){
 	$('#edit-inventory-modal').modal('toggle');
 	//Get the ID
-	var id = $("#inventory-edit-form input[name=inventory_id]").val();
+	var id = $("#inventory-edit-form input[name=inventoryId]").val();
 	console.log(id);
 	var url = getInventoryUrl() + "/" + id;
 
@@ -136,9 +136,9 @@ function displayInventoryList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button onclick="displayEditInventory(' + e.inventory_id + ')">edit</button>'
+		var buttonHtml = ' <button onclick="displayEditInventory(' + e.inventoryId + ')">edit</button>'
 		var row = '<tr>'
-		+ '<td>' + e.inventory_id + '</td>'
+		+ '<td>' + e.inventoryId + '</td>'
 		+ '<td>' + e.product_name + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
@@ -192,7 +192,7 @@ function displayUploadData(){
 
 function displayInventory(data){
 	$("#inventory-edit-form input[name=quantity]").val(data.quantity);
-	$("#inventory-edit-form input[name=inventory_id]").val(data.inventory_id);
+	$("#inventory-edit-form input[name=inventoryId]").val(data.inventoryId);
 	$("#inventory-edit-form input[name=barcode]").val(data.barcode);
 	$('#edit-inventory-modal').modal('toggle');
 }

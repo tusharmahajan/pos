@@ -21,6 +21,7 @@ public class InventoryDao extends AbstractDao {
     @Transactional
     public InventoryPojo insert(InventoryPojo i) {
         em.persist(i);
+        em.flush();
         return i;
     }
 

@@ -28,7 +28,7 @@ import java.util.List;
 @Service
 public class OrderItemDto {
 
-    public final String xmlFilePath = "./invoice.xml";
+    public final String xmlFilePath = "src/main/resources/com/increff/employee/invoice.xml";
     @Autowired
     private ProductService productService;
     @Autowired

@@ -1,25 +1,25 @@
 package com.increff.employee.pojo;
 
-import com.increff.employee.util.StringUtil;
-
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 @Entity
 public class InventoryPojo {
 
     @Id
-    private int inventory_id;
+    private int inventoryId;
 
     private int quantity;
 
-    public int getInventory_id() {
-        return inventory_id;
+    public int getInventoryId() {
+        return inventoryId;
     }
 
-    public void setInventory_id(int inventory_id) {
-        this.inventory_id = inventory_id;
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
     public int getQuantity() {

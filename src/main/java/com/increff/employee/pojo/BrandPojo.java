@@ -3,10 +3,9 @@ package com.increff.employee.pojo;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"brand", "category"}))
-
+@Table(indexes = {@Index(columnList = "brand,category")} , uniqueConstraints = @UniqueConstraint
+		(columnNames = {"brand" ,"category"}))
 public class BrandPojo {
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;

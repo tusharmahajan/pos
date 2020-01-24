@@ -184,8 +184,10 @@ function createBrandData(data){
 
 function fillBrandDrop(){
     var $selectbody = $('#selectBrand');
+    var row = "<option selected>" + "Select Brand" + "</option>"
+    $selectbody.append(row);
     for(var i in brandData){
-        var row = "<option>" + i + "</option>";
+         row = "<option>" + i + "</option>";
         $selectbody.append(row);
     }
 }
@@ -340,8 +342,9 @@ function refreshButton()
 {
 $('#product-form')[0].reset();
 $('#selectBrand').empty();
-getBrandList();
 $('#selectCategory').empty();
+getBrandList();
+
 //getProductList();
 }
 //INITIALIZATION CODE

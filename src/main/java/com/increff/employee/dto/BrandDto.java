@@ -33,7 +33,7 @@ public class BrandDto {
 
 
     public BrandData get(int id) throws ApiException {
-        BrandPojo p = service.get(id);
+        BrandPojo p = service.getCheck(id);
         return convert(p);
     }
 
