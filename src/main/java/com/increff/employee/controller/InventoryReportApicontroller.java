@@ -2,6 +2,7 @@ package com.increff.employee.controller;
 
 
 import com.increff.employee.dto.InventoryReportDto;
+import com.increff.employee.dto.InventoryReportDto2;
 import com.increff.employee.model.InventoryReportData;
 import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
@@ -18,11 +19,11 @@ import java.util.List;
 public class InventoryReportApicontroller {
 
     @Autowired
-    private InventoryReportDto inventoryReportDto;
+    private InventoryReportDto2 inventoryReportDto2;
 
     @ApiOperation(value = "Inventory report")
     @RequestMapping(path = "/api/inventoryreport", method = RequestMethod.GET)
     public List<InventoryReportData> get() throws ApiException {
-        return inventoryReportDto.getAll();
+        return inventoryReportDto2.getAll();
     }
 }

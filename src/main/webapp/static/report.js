@@ -13,11 +13,13 @@ function getReport(event){
     alert("Enter startDate");
     return false;
   }
-    //$('#report-form')[0].reset();
+    $('#selectBrand').empty();
     fillBrandDrop($('#selectBrand'));
     fillCategoryDropInit($('#selectCategory'));
+
     var $form = $("#report-form");
     var json = toJson($form);
+    console.log(json);
     var url = getReportUrl();
 //    console.log(url);
 //     console.log(json);
@@ -29,7 +31,8 @@ function getReport(event){
         'Content-Type': 'application/json'
       },
       success: function(response) {
-        displaySalesReport(response)
+        displaySalesReport(response);
+
 //        console.log("hi success");
       },
       error: handleAjaxError
@@ -51,6 +54,7 @@ function getReport(event){
 
 
   function displaySalesReport(data){
+    console.log("returned");
     console.log(data);
     var $thead = $('#report-table').find('thead');
     $thead.empty();
@@ -72,6 +76,12 @@ function getReport(event){
       + '</tr>';
       $tbody.append(row);
     }
+//    $('#report-form input[name=brand]').val("");
+//    $('#report-form input[name=category]').val("");
+//    $('#report-form').trigger("reset");
+
+    categoryTemp="";
+    brandTemp="";
     $('#sales-report-modal').modal('toggle');
 
   }
@@ -100,6 +110,8 @@ function getReport(event){
 
   function getBrandList(){
     $('#sales-report-modal').modal('toggle');
+    $('#selectBrand').empty();
+
     var url = "/pos/api/brand";
     $.ajax({
       url: url,
@@ -130,13 +142,14 @@ function getReport(event){
       var e=data[i];
       brandTemp=e.brand;
     //console.log(brandTemp);
-    if(!brandData.hasOwnProperty(brandTemp))
-     brandData[brandTemp]={};
-   brandData[brandTemp][e.category]=e.id;
-   if(!categoryData.hasOwnProperty(e.category))
+        if(!brandData.hasOwnProperty(brandTemp))
+        brandData[brandTemp]={};
+    brandData[brandTemp][e.category]=e.id;
+    if(!categoryData.hasOwnProperty(e.category))
     categoryData[e.category]=1;
 }
     //console.log(brandData);
+//     $('#selectBrand').empty();
     fillBrandDrop($('#selectBrand'));
     fillCategoryDropInit($('#selectCategory'))
   }
@@ -152,11 +165,13 @@ function getReport(event){
   }
 
   function fillBrandDrop(selectbody){
-    var $selectbody=selectbody;
+    var $selectbody = selectbody;
 //console.log(brandData);
-
+//    $selectbody.empty();
+    var row="<option selected>"+"Select Brand"+"</option>";
+        $selectbody.append(row);
   for(var i in brandData){
-    var row="<option>"+i+"</option>";
+     row="<option>"+i+"</option>";
     $selectbody.append(row);
   } 
 }
@@ -175,6 +190,7 @@ var brandTemp="";
 $('#selectBrand').on('change',function(){
   brandTemp = $("#selectBrand option:selected").text();
   fillCategoryDrop($('#selectCategory'),brandTemp);
+
 });
 
 var categoryTemp="";

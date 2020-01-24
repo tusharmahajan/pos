@@ -1,6 +1,7 @@
 package com.increff.employee.controller;
 
 import com.increff.employee.dto.SalesReportDto;
+import com.increff.employee.dto.SalesReportDto2;
 import com.increff.employee.model.SalesReportData;
 import com.increff.employee.model.SalesReportForm;
 import com.increff.employee.service.ApiException;
@@ -19,12 +20,12 @@ import java.util.List;
 public class SalesApiController {
 
     @Autowired
-    private SalesReportDto salesReportDto;
+    private SalesReportDto2 salesReportDto2;
 
     @ApiOperation(value = "Gets sales reports")
     @RequestMapping(path = "/api/salesreport", method = RequestMethod.POST)
     public List<SalesReportData> get(@RequestBody SalesReportForm form) throws ApiException {
-        return salesReportDto.get(form);
+        return salesReportDto2.get(form);
     }
 
 
