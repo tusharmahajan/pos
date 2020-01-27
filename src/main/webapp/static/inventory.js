@@ -3,32 +3,6 @@ function getInventoryUrl(){
 	return baseUrl + "/api/inventory";
 }
 
-////BUTTON ACTIONS
-//function addInventory(event){
-//	//Set the values to update
-//
-//
-//	var $form = $("#inventory-form");
-//	var json = toJson($form);
-//	var url = getInventoryUrl();
-////console.log(json.name+" "+json.quantity);
-//	$.ajax({
-//	   url: url,
-//	   type: 'POST',
-//	   data: json,
-//	   headers: {
-//       	'Content-Type': 'application/json'
-//       },
-//	   success: function(response) {
-//	   		getInventoryList();
-//	   },
-//	   error: handleAjaxError
-//	})
-//    $("#inventory-form")[0].reset();
-//
-//return false;
-//}
-
 function updateInventory(event){
 	$('#edit-inventory-modal').modal('toggle');
 	//Get the ID
@@ -41,18 +15,18 @@ function updateInventory(event){
 
 	var json = toJson($form);
 	json['quantity'] = Number(json['quantity'])
-    console.log(json);
+	console.log(json);
 	$.ajax({
-	   url: url,
-	   type: 'PUT',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getInventoryList();
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'PUT',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		success: function(response) {
+			getInventoryList();
+		},
+		error: handleAjaxError
 	});
 
 	return false;
@@ -62,12 +36,12 @@ function updateInventory(event){
 function getInventoryList(){
 	var url = getInventoryUrl();
 	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayInventoryList(data);
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'GET',
+		success: function(data) {
+			displayInventoryList(data);
+		},
+		error: handleAjaxError
 	});
 }
 
@@ -105,23 +79,23 @@ function uploadRows(){
 
 	//Make ajax call
 	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		uploadRows();
-	   },
-	   error: function(response){
-	   		row.error=response.responseText
-	   		errorData.push(row);
-	   		uploadRows();
-	   }
+		url: url,
+		type: 'POST',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		success: function(response) {
+			uploadRows();
+		},
+		error: function(response){
+			row.error=response.responseText
+			errorData.push(row);
+			uploadRows();
+		}
 
 	});
-    	   $("#inventory-form")[0].reset();
+	$("#inventory-form")[0].reset();
 
 }
 
@@ -144,19 +118,19 @@ function displayInventoryList(data){
 		+ '<td>'  + e.quantity + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
-        $tbody.append(row);
+		$tbody.append(row);
 	}
 }
 
 function displayEditInventory(id){
 	var url = getInventoryUrl() + "/" + id;
 	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayInventory(data);
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'GET',
+		success: function(data) {
+			displayInventory(data);
+		},
+		error: handleAjaxError
 	});
 }
 
@@ -186,7 +160,7 @@ function updateFileName(){
 }
 
 function displayUploadData(){
- 	resetUploadDialog();
+	resetUploadDialog();
 	$('#upload-inventory-modal').modal('toggle');
 }
 
@@ -199,12 +173,12 @@ function displayInventory(data){
 //INITIALIZATION CODE
 function init(){
 //	$('#add-inventory').click(addInventory);
-	$('#update-inventory').click(updateInventory);
-	$('#refresh-data').click(getInventoryList);
-	$('#upload-data').click(displayUploadData);
-	$('#process-data').click(processData);
-	$('#download-errors').click(downloadErrors);
-    $('#inventoryFile').on('change', updateFileName)
+$('#update-inventory').click(updateInventory);
+$('#refresh-data').click(getInventoryList);
+$('#upload-data').click(displayUploadData);
+$('#process-data').click(processData);
+$('#download-errors').click(downloadErrors);
+$('#inventoryFile').on('change', updateFileName)
 }
 
 $(document).ready(init);

@@ -13,43 +13,39 @@ function getReport(event){
     alert("Enter startDate");
     return false;
   }
-    $('#selectBrand').empty();
-    fillBrandDrop($('#selectBrand'));
-    fillCategoryDropInit($('#selectCategory'));
+      $('#selectBrand').empty();
+      fillBrandDrop($('#selectBrand'));
+      fillCategoryDropInit($('#selectCategory'));
 
-    var $form = $("#report-form");
-    var json = toJson($form);
-    console.log(json);
-    var url = getReportUrl();
-//    console.log(url);
-//     console.log(json);
-     $.ajax({
-      url: url,
-      type: 'POST',
-      data: json,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: function(response) {
-        displaySalesReport(response);
-
-//        console.log("hi success");
-      },
-      error: handleAjaxError
-    });
+      var $form = $("#report-form");
+      var json = toJson($form);
+      console.log(json);
+      var url = getReportUrl();
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: json,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          success: function(response) {
+            displaySalesReport(response);
+           },
+          error: handleAjaxError
+        });
     //return false;
   }
 
   function toJson($form){
-      var serialized = $form.serializeArray();
-      console.log(serialized);
-      var s = '';
-      var data = {};
-      for(s in serialized){
-          data[serialized[s]['name']] = serialized[s]['value']
-      }
-      var json = JSON.stringify(data);
-      return json;
+    var serialized = $form.serializeArray();
+    console.log(serialized);
+    var s = '';
+    var data = {};
+    for(s in serialized){
+      data[serialized[s]['name']] = serialized[s]['value']
+    }
+    var json = JSON.stringify(data);
+    return json;
   }
 
 
@@ -80,100 +76,98 @@ function getReport(event){
 //    $('#report-form input[name=category]').val("");
 //    $('#report-form').trigger("reset");
 
-    categoryTemp="";
-    brandTemp="";
-    $('#sales-report-modal').modal('toggle');
+categoryTemp="";
+brandTemp="";
+$('#sales-report-modal').modal('toggle');
 
+}
+
+function displayInventoryReport(data){
+  var $thead= $('#report-table').find('thead');
+  $thead.empty();
+  var $tbody = $('#report-table').find('tbody');
+  var row='<tr>'
+  + '<th scope="col">Brand</th>'
+  + '<th scope="col">Category</th>'
+  + '<th scope="col">Quantity</th>'
+  + '</tr>'
+  $thead.append(row);
+  $tbody.empty();
+  for(var i in data){
+    var e = data[i];
+    var row = '<tr>'
+    + '<td>' + e.brand+ '</td>'
+    + '<td>' + e.category + '</td>'
+    + '<td>'  + e.quantity + '</td>'
+    + '</tr>';
+    $tbody.append(row);
   }
+}
 
-  function displayInventoryReport(data){
-    var $thead= $('#report-table').find('thead');
-    $thead.empty();
-    var $tbody = $('#report-table').find('tbody');
-    var row='<tr>'
-    + '<th scope="col">Brand</th>'
-    + '<th scope="col">Category</th>'
-    + '<th scope="col">Quantity</th>'
-    + '</tr>'
-    $thead.append(row);
-    $tbody.empty();
-    for(var i in data){
-      var e = data[i];
-      var row = '<tr>'
-      + '<td>' + e.brand+ '</td>'
-      + '<td>' + e.category + '</td>'
-      + '<td>'  + e.quantity + '</td>'
-      + '</tr>';
-      $tbody.append(row);
-    }
-  }
+function getBrandList(){
+  $('#sales-report-modal').modal('toggle');
+  $('#selectBrand').empty();
 
-  function getBrandList(){
-    $('#sales-report-modal').modal('toggle');
-    $('#selectBrand').empty();
+  var url = "/pos/api/brand";
+  $.ajax({
+    url: url,
+    type: 'GET',
+    success: function(data) {
+      createBrandData(data);
+    },
+    error: handleAjaxError
+  });
+}
 
-    var url = "/pos/api/brand";
-    $.ajax({
-      url: url,
-      type: 'GET',
-      success: function(data) {
-        createBrandData(data);
-      },
-      error: handleAjaxError
-    });
-  }
+function getInventoryReport(){
+  var url = "/pos/api/inventoryreport";
+  $.ajax({
+    url: url,
+    type: 'GET',
+    success: function(data) {
+      displayInventoryReport(data);
+    },
+    error: handleAjaxError
+  });
+}
 
-  function getInventoryReport(){
-    var url = "/pos/api/inventoryreport";
-    $.ajax({
-      url: url,
-      type: 'GET',
-      success: function(data) {
-        displayInventoryReport(data);
-      },
-      error: handleAjaxError
-    });
-  }
-
-  function createBrandData(data)
-  {
-    var brandTemp="";
-    for(var i in data){
-      var e=data[i];
-      brandTemp=e.brand;
+function createBrandData(data)
+{
+  var brandTemp="";
+  for(var i in data){
+    var e=data[i];
+    brandTemp=e.brand;
     //console.log(brandTemp);
-        if(!brandData.hasOwnProperty(brandTemp))
-        brandData[brandTemp]={};
+    if(!brandData.hasOwnProperty(brandTemp))
+      brandData[brandTemp]={};
     brandData[brandTemp][e.category]=e.id;
     if(!categoryData.hasOwnProperty(e.category))
-    categoryData[e.category]=1;
-}
-    //console.log(brandData);
-//     $('#selectBrand').empty();
+      categoryData[e.category]=1;
+  }
+
     fillBrandDrop($('#selectBrand'));
     fillCategoryDropInit($('#selectCategory'))
-  }
+}
 
-  function fillCategoryDropInit(selectbody){
-    var $selectbody=selectbody;
-    $selectbody.empty();
-    $selectbody.append("<option>-- --</option>");
-    for(var i in categoryData){
-      var row="<option>"+i+"</option>";
-      $selectbody.append(row);
-    }
-  }
+function fillCategoryDropInit(selectbody){
+  var $selectbody=selectbody;
+  $selectbody.empty();
+  $selectbody.append("<option>-- --</option>");
 
-  function fillBrandDrop(selectbody){
-    var $selectbody = selectbody;
-//console.log(brandData);
-//    $selectbody.empty();
-    var row="<option selected>"+"Select Brand"+"</option>";
-        $selectbody.append(row);
-  for(var i in brandData){
-     row="<option>"+i+"</option>";
+  for(var i in categoryData){
+    var row="<option>"+i+"</option>";
     $selectbody.append(row);
-  } 
+  }
+}
+
+function fillBrandDrop(selectbody){
+      var $selectbody = selectbody;
+      var row="<option selected>"+"Select Brand"+"</option>";
+      $selectbody.append(row);
+      for(var i in brandData){
+        row="<option>"+i+"</option>";
+        $selectbody.append(row);
+    }
 }
 
 function fillCategoryDrop(selectbody,brandTemp){
@@ -234,6 +228,6 @@ function init(){
   $('#generate-report').click(getReport);
   $('#sales-report').click(getBrandList);
   $('#inventory-report').click(getInventoryReport);
-  $('#brand-report').click(getBrandReport);}
-
-  $(document).ready(init);
+  $('#brand-report').click(getBrandReport);
+}
+$(document).ready(init);

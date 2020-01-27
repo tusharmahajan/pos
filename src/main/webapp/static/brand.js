@@ -11,34 +11,34 @@ function addBrand(event){
 	var $form = $("#brand-form");
 	var json = toJson($form);
 	var url = getBrandUrl();
-console.log(json);
+	console.log(json);
 	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'POST',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		success: function(response) {
+			getBrandList();
+		},
+		error: handleAjaxError
 	})
-    $("#brand-form")[0].reset();
+	$("#brand-form")[0].reset();
 
-return false;
+	return false;
 }
 
 function toJson($form){
-    var serialized = $form.serializeArray();
-    console.log(serialized);
-    var s = '';
-    var data = {};
-    for(s in serialized){
-        data[serialized[s]['name']] = serialized[s]['value']
-    }
-    var json = JSON.stringify(data);
-    return json;
+	var serialized = $form.serializeArray();
+	console.log(serialized);
+	var s = '';
+	var data = {};
+	for(s in serialized){
+		data[serialized[s]['name']] = serialized[s]['value']
+	}
+	var json = JSON.stringify(data);
+	return json;
 }
 
 
@@ -49,20 +49,26 @@ function updateBrand(event){
 	var url = getBrandUrl() + "/" + id;
 
 	//Set the values to update
+	var brand =  $("#brand-edit-form input[name=brand").val();
+	var category =  $("#brand-edit-form input[name=category").val();
+	if(brand=="" || category==""){
+	    alert("Brand and Category cannot be empty");
+	    return;
+	}
 	var $form = $("#brand-edit-form");
 	var json = toJson($form);
 
 	$.ajax({
-	   url: url,
-	   type: 'PUT',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'PUT',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		success: function(response) {
+			getBrandList();
+		},
+		error: handleAjaxError
 	});
 
 	return false;
@@ -72,27 +78,15 @@ function updateBrand(event){
 function getBrandList(){
 	var url = getBrandUrl();
 	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrandList(data);
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'GET',
+		success: function(data) {
+			displayBrandList(data);
+		},
+		error: handleAjaxError
 	});
 }
 
-//function deleteBrand(id){
-//	var url = getbrandUrl() + "/" + id;
-//
-//	$.ajax({
-//	   url: url,
-//	   type: 'DELETE',
-//	   success: function(data) {
-//	   		getBrandList();
-//	   },
-//	   error: handleAjaxError
-//	});
-//}
 
 // FILE UPLOAD METHODS
 var fileData = [];
@@ -127,20 +121,20 @@ function uploadRows(){
 
 	//Make ajax call
 	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		uploadRows();
-	   },
-	   error: function(response){
-	   		row.error=response.responseText
-	   		errorData.push(row);
-	   		uploadRows();
-	   }
+		url: url,
+		type: 'POST',
+		data: json,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		success: function(response) {
+			uploadRows();
+		},
+		error: function(response){
+			row.error=response.responseText
+			errorData.push(row);
+			uploadRows();
+		}
 	});
 
 }
@@ -163,19 +157,19 @@ function displayBrandList(data){
 		+ '<td>'  + e.category + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
-        $tbody.append(row);
+		$tbody.append(row);
 	}
 }
 
 function displayEditBrand(id){
 	var url = getBrandUrl() + "/" + id;
 	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrand(data);
-	   },
-	   error: handleAjaxError
+		url: url,
+		type: 'GET',
+		success: function(data) {
+			displayBrand(data);
+		},
+		error: handleAjaxError
 	});
 }
 
@@ -205,7 +199,7 @@ function updateFileName(){
 }
 
 function displayUploadData(){
- 	resetUploadDialog();
+	resetUploadDialog();
 	$('#upload-brand-modal').modal('toggle');
 }
 
@@ -223,7 +217,7 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
-    $('#brandFile').on('change', updateFileName)
+	$('#brandFile').on('change', updateFileName)
 }
 
 $(document).ready(init);

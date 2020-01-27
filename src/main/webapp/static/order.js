@@ -11,34 +11,31 @@ function addOrderItem(){
 	var quantity = Number($('#orderitem-form input[name=quantity]').val());
 //	console.log(barcode);
     if(barcode ==""){
-        alert("Enter barcode");
-        return;
+	alert("Enter barcode");
+	return;
     }
-var url = getOrderUrl() + '/' + barcode ;
+    var url = getOrderUrl() + '/' + barcode ;
 
-$.ajax({
-	url: url,
-	type: 'GET',
-	success: function(data) {
-		if(!orderItemTable.hasOwnProperty(barcode)) orderItemTable[barcode] = [data.name ,quantity , data.mrp];
-		else orderItemTable[barcode][1] = Number(orderItemTable[barcode][1]) + quantity;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data) {
+            if(!orderItemTable.hasOwnProperty(barcode)) orderItemTable[barcode] = [data.name ,quantity , data.mrp];
+            else orderItemTable[barcode][1] = Number(orderItemTable[barcode][1]) + quantity;
 
-		if(Number(orderItemTable[barcode][1]) > data.quantity){
-			orderItemTable[barcode][1] =  Number(orderItemTable[barcode][1]) - quantity;
-			alert("Quantity not available.Max quantity is :" + data.quantity);
-		}
-		else{
-//		console.log(data);
-		displayOrderList(data);
-		}
-//	   		checkQuantity(data);
-//	   		make_map(data);
-},
-error: handleAjaxError
-});
+            if(Number(orderItemTable[barcode][1]) > data.quantity){
+                orderItemTable[barcode][1] =  Number(orderItemTable[barcode][1]) - quantity;
+                alert("Quantity not available.Max quantity is :" + data.quantity);
+            }
+            else{
+                displayOrderList(data);
+            }
+        },
+        error: handleAjaxError
+    });
 
-$("#orderitem-form")[0].reset();
-return false;
+    $("#orderitem-form")[0].reset();
+    return false;
 }
 
 function addOrder(event){
@@ -46,7 +43,6 @@ function addOrder(event){
 
 	var row_entry = {};
 	var send_order= [];
-//	console.log('sadasd');
 	for(var i in orderItemTable){
 		row_entry = new Object;
 		row_entry['barcode'] = i;
@@ -57,22 +53,22 @@ function addOrder(event){
 	var url = getOrderUrl();
 //	console.log(send_order);
 
-	$.ajax({
-		url: url,
-		type: 'POST',
-		data: JSON.stringify(send_order),
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		success: function(response) {
+$.ajax({
+	url: url,
+	type: 'POST',
+	data: JSON.stringify(send_order),
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	success: function(response) {
 //			console.log("hi");
 //	   		getOrderList();
-    alert("Congralutions order created");
+alert("Congralutions order created");
 
 },
 error: handleAjaxError
 });
-	return false;
+return false;
 }
 
 function updateOrder(event){
@@ -88,15 +84,14 @@ function updateOrder(event){
 		url: url,
 		type: 'GET',
 		success: function(data) {
-//	            console.log(data.quantity - Number(orderItemTable[barcode][1])+quantity_in_edit);
-if((data.quantity - quantity_in_edit) < 0)  alert("Not available.Max quantity available is  :"+data.quantity);
+            if((data.quantity - quantity_in_edit) < 0)  alert("Not available.Max quantity available is  :"+data.quantity);
 
-else{
-	orderItemTable[barcode][1] =  quantity_in_edit;
-}
-displayOrderList(data);
-},
-error: handleAjaxError
+            else{
+                orderItemTable[barcode][1] =  quantity_in_edit;
+            }
+            displayOrderList(data);
+            },
+        error: handleAjaxError
 });
 
 	return false;
@@ -107,19 +102,6 @@ function deleteOrder(data){
 	delete orderItemTable[data];
 	displayOrderList();
 }
-
-//function getOrderList(){
-//	var url = getOrderUrl();
-//	$.ajax({
-//	   url: url,
-//	   type: 'GET',
-//	   success: function(data) {
-//	   		displayOrderList(data)  ;
-//	   },
-//	   error: handleAjaxError
-//	});
-//}
-
 
 // FILE UPLOAD METHODS
 var fileData = [];
@@ -217,24 +199,11 @@ function displayOrderList(data){
 	$tbody.append(row2);
 
 }
-//function editdisplayOrder(barcode){
-//    var url = getOrderUrl() + "/" + barcode;
-//    var quantity_in_edit = $("#order-edit-form input[name=quantity]").val();
-//	    $.ajax({
-//	        url: url,
-//	        type: 'GET',
-//	        success: function(data) {
-//	   		    displayOrder(data ,barcode);
-//	        },
-//	        error: handleAjaxError
-//	    });
-//}
 
 function displayOrder(barcode){
-//	$("#order-edit-form input[name=name]").val(orderItemTable[data][0]);
-$("#order-edit-form input[name=quantity]").val(orderItemTable[barcode][1]);
-$("#order-edit-form input[name=barcode]").val(barcode);
-$('#edit-order-modal').modal('toggle');
+	$("#order-edit-form input[name=quantity]").val(orderItemTable[barcode][1]);
+	$("#order-edit-form input[name=barcode]").val(barcode);
+	$('#edit-order-modal').modal('toggle');
 
 }
 
@@ -279,7 +248,6 @@ function init(){
 	$('#add-order').click(addOrderItem);
 	$('#order-form').click(addOrder);
 	$('#update-order').click(updateOrder);
-//	$('#refresh-page').click(refreshlist);
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
